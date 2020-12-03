@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-type Function struct {
-	Statements []fmt.Stringer
-}
-
 func main() {
 	fmt.Println(&File{
 		Name: "my file",
@@ -17,10 +13,17 @@ func main() {
 			},
 		},
 		PackageName: "main",
-		Defs: Defs{
-			&Def{
-				Name:  "name",
-				Value: "Amirreza",
+		Functions: Functions{
+			&Function{
+				Name: "sum",
+				Args: Args{
+					&Arg{"x", "int"},
+					&Arg{"y", "int"},
+				},
+				Output: []string{"int"},
+				Body: Statements{
+					&Return{Code("x+y")},
+				},
 			},
 		},
 		Decls: Decls{
