@@ -164,7 +164,6 @@ func (f Functions) String() string {
 }
 
 type If struct {
-	isElse    bool
 	Condition string
 	Body      Statements
 }
@@ -179,6 +178,24 @@ type Else struct {
 
 func (e *Else) String() string {
 	return fmt.Sprintf("else {\n%s\n}", e.Body.Join("\n"))
+}
+
+type IfElse struct {
+	If      *If
+	ElseIfs []*If
+	Else    *Else
+}
+
+func (i *IfElse) String() string {
+	out := ""
+	out += i.If.String()
+	var elseIfs []string
+	for _, iF := range i.ElseIfs {
+		elseIfs = append(elseIfs, iF.String())
+	}
+	out += strings.Join(elseIfs, "else")
+	out += i.Else.String()
+	return out
 }
 
 type For struct {

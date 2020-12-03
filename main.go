@@ -15,14 +15,26 @@ func main() {
 		PackageName: "main",
 		Functions: Functions{
 			&Function{
-				Name: "sum",
+				Name: "haha",
 				Args: Args{
 					&Arg{"x", "int"},
 					&Arg{"y", "int"},
 				},
 				Output: []string{"int"},
 				Body: Statements{
-					&Return{Code("x+y")},
+					&IfElse{
+						If: &If{
+							Condition: "x<y",
+							Body: Statements{
+								&Return{Code("x")},
+							},
+						},
+						Else: &Else{
+							Body: Statements{
+								&Return{Code("y")},
+							},
+						},
+					},
 				},
 			},
 		},
